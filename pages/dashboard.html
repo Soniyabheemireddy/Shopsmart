@@ -24,7 +24,7 @@
 <script>
 async function loadDashboard() {
   var content = document.getElementById("page-content");
-  content.innerHTML = '<div style="text-align:center;padding:40px;color:#888">Loading dashboard…</div>';
+  content.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-3)">Loading dashboard…</div>';
   try {
 
   var todayStr = today();
@@ -112,12 +112,12 @@ async function loadDashboard() {
       '</div>' +
       '<div class="kpi-card" style="border-left-color:#388E3C">' +
         '<div class="kpi-label">' + t("dash.profit") + '</div>' +
-        '<div class="kpi-value" style="font-size:21px;color:#2E7D32">' + fmtCurrency(todayProfit) + '</div>' +
+        '<div class="kpi-value" style="font-size:21px">' + fmtCurrency(todayProfit) + '</div>' +
         '<div class="kpi-sub">After cost</div>' +
       '</div>' +
       '<div class="kpi-card yellow">' +
         '<div class="kpi-label">' + t("dash.alerts") + '</div>' +
-        '<div class="kpi-value" style="color:#F9A825">' + alertCount + '</div>' +
+        '<div class="kpi-value">' + alertCount + '</div>' +
         '<div class="kpi-sub">' + lowStockCount + ' low stock · ' + expiryCount + ' expiry</div>' +
       '</div>' +
     '</div>' +
@@ -172,7 +172,7 @@ async function loadDashboard() {
     '<!-- AI Predictions -->' +
     '<div class="card" style="margin-top:18px">' +
       '<div class="card-title">🤖 ' + t("pred.title") + '</div>' +
-      '<div id="ai-predictions"><div style="color:#888;text-align:center;padding:16px">Analyzing sales patterns…</div></div>' +
+      '<div id="ai-predictions"><div style="color:var(--text-3);text-align:center;padding:16px">Analyzing sales patterns…</div></div>' +
     '</div>';
 
   // Profit chart
@@ -318,7 +318,7 @@ async function loadDashboard() {
       var withRate = predictions.filter(function(p) { return p.dailyRate > 0; });
 
       if (!withRate.length) {
-        el.innerHTML = '<div style="text-align:center;padding:16px;color:#888"><div style="font-size:28px;margin-bottom:8px">📊</div>' + t("pred.no_data") + '</div>';
+        el.innerHTML = '<div style="text-align:center;padding:16px;color:var(--text-3)"><div style="font-size:28px;margin-bottom:8px">📊</div>' + t("pred.no_data") + '</div>';
         return;
       }
 
@@ -333,8 +333,9 @@ async function loadDashboard() {
         var stockColor = stockPct <= 10 ? '#e8634f' : stockPct <= 30 ? '#f0ad4e' : '#3ab87d';
         var trendHtml = '<span style="color:' + pred.trend.color + '">' + pred.trend.icon + ' ' + pred.trend.trend + '</span>';
         var alertsHtml = pred.alerts.map(function(a) {
-          var bgColor = a.severity === 'critical' ? '#ffcdd2' : '#fff9c4';
-          var txtColor = a.severity === 'critical' ? '#c62828' : '#7B5800';
+          var isDk = document.documentElement.getAttribute('data-theme') === 'dark';
+          var bgColor = a.severity === 'critical' ? (isDk ? 'rgba(255,107,94,0.15)' : '#ffcdd2') : (isDk ? 'rgba(255,214,102,0.15)' : '#fff9c4');
+          var txtColor = a.severity === 'critical' ? (isDk ? '#ff8578' : '#c62828') : (isDk ? '#ffd666' : '#7B5800');
           return '<div style="font-size:11px;padding:4px 8px;border-radius:6px;background:' + bgColor + ';color:' + txtColor + ';margin-top:4px">' + a.icon + ' ' + a.message + '</div>';
         }).join('');
         var stockoutText = pred.stockoutDays === Infinity ? '—' : '~' + pred.stockoutDays + 'd';
@@ -361,7 +362,7 @@ async function loadDashboard() {
     }).catch(function(e) {
       console.warn("Predictions error:", e);
       var el = document.getElementById("ai-predictions");
-      if (el) el.innerHTML = '<div style="color:#888;text-align:center;padding:16px">Could not generate predictions.</div>';
+      if (el) el.innerHTML = '<div style="color:var(--text-3);text-align:center;padding:16px">Could not generate predictions.</div>';
     });
   }
   } catch(e) {
@@ -369,7 +370,7 @@ async function loadDashboard() {
     content.innerHTML = '<div class="card" style="text-align:center;padding:40px">' +
       '<div style="font-size:36px;margin-bottom:12px">⚠️</div>' +
       '<div style="font-weight:700;margin-bottom:8px;color:var(--red)">Failed to load dashboard</div>' +
-      '<div style="font-size:13px;color:#888;margin-bottom:16px">Could not load dashboard. Please try again.</div>' +
+      '<div style="font-size:13px;color:var(--text-3);margin-bottom:16px">Could not load dashboard. Please try again.</div>' +
       '<button class="btn btn-primary" onclick="loadDashboard()">🔄 Retry</button>' +
     '</div>';
   }

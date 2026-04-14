@@ -22,7 +22,7 @@
 var reportData = null;
 
 async function loadReport(period) {
-  document.getElementById("report-body").innerHTML = '<div style="text-align:center;padding:32px;color:#888">Loading ' + period + ' report…</div>';
+  document.getElementById("report-body").innerHTML = '<div style="text-align:center;padding:32px;color:var(--text-3)">Loading ' + period + ' report…</div>';
   try {
   var days = period === "daily" ? 1 : period === "weekly" ? 7 : 30;
   var since = new Date(); since.setDate(since.getDate() - days + 1);
@@ -66,15 +66,15 @@ async function loadReport(period) {
   }
 
   var topProdsHtml = topProds.map(function(entry) { return '<tr><td>' + entry[0] + '</td><td><strong>' + entry[1] + '</strong></td></tr>'; }).join("");
-  if (!topProdsHtml) topProdsHtml = '<tr><td colspan="2" style="text-align:center;color:#888">No data</td></tr>';
+  if (!topProdsHtml) topProdsHtml = '<tr><td colspan="2" style="text-align:center;color:var(--text-3)">No data</td></tr>';
 
   var gstTableHtml = Object.entries(gstSlabMap).map(function(entry) { return '<tr><td>' + entry[0] + '%</td><td>' + fmtCurrency(entry[1]) + '</td></tr>'; }).join("");
-  if (!gstTableHtml) gstTableHtml = '<tr><td colspan="2" style="text-align:center;color:#888">No data</td></tr>';
+  if (!gstTableHtml) gstTableHtml = '<tr><td colspan="2" style="text-align:center;color:var(--text-3)">No data</td></tr>';
 
   var dailyHtml = Object.entries(dayMap).sort(function(a,b) { return b[0].localeCompare(a[0]); }).map(function(entry) {
-    return '<tr><td>' + fmtDate(entry[0]) + '</td><td>' + entry[1].bills + '</td><td>' + fmtCurrency(entry[1].revenue) + '</td><td style="color:var(--green);font-weight:600">' + fmtCurrency(entry[1].profit) + '</td></tr>';
+    return '<tr><td>' + fmtDate(entry[0]) + '</td><td>' + entry[1].bills + '</td><td>' + fmtCurrency(entry[1].revenue) + '</td><td style="color:var(--mint);font-weight:600">' + fmtCurrency(entry[1].profit) + '</td></tr>';
   }).join("");
-  if (!dailyHtml) dailyHtml = '<tr><td colspan="4" style="text-align:center;color:#888">No sales in this period.</td></tr>';
+  if (!dailyHtml) dailyHtml = '<tr><td colspan="4" style="text-align:center;color:var(--text-3)">No sales in this period.</td></tr>';
 
   document.getElementById("report-body").innerHTML =
     '<!-- Summary cards -->' +
@@ -82,7 +82,7 @@ async function loadReport(period) {
       '<div class="kpi-card"><div class="kpi-label">' + t("report.total_bills") + '</div><div class="kpi-value">' + billCount + '</div></div>' +
       '<div class="kpi-card accent"><div class="kpi-label">' + t("report.items_sold") + '</div><div class="kpi-value">' + fmtNum(itemCount) + '</div></div>' +
       '<div class="kpi-card blue"><div class="kpi-label">' + t("dash.revenue") + '</div><div class="kpi-value" style="font-size:20px">' + fmtCurrency(totalRevenue) + '</div></div>' +
-      '<div class="kpi-card"><div class="kpi-label">' + t("dash.profit") + '</div><div class="kpi-value" style="font-size:20px;color:var(--green)">' + fmtCurrency(totalProfit) + '</div></div>' +
+      '<div class="kpi-card"><div class="kpi-label">' + t("dash.profit") + '</div><div class="kpi-value" style="font-size:20px">' + fmtCurrency(totalProfit) + '</div></div>' +
       '<div class="kpi-card yellow"><div class="kpi-label">' + t("report.gst") + '</div><div class="kpi-value" style="font-size:20px">' + fmtCurrency(totalGST) + '</div></div>' +
     '</div>' +
 

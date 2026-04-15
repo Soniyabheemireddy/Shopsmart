@@ -75,7 +75,7 @@ function renderProducts() {
 
   var el = document.getElementById("shop-products");
   if (!el) return;
-  if (!list.length) { el.innerHTML = '<div style="text-align:center;padding:32px;color:#888">No products found.</div>'; return; }
+  if (!list.length) { el.innerHTML = '<div style="text-align:center;padding:32px;color:var(--text-3)">No products found.</div>'; return; }
 
   el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px">' +
     list.map(function(p) {
@@ -86,7 +86,7 @@ function renderProducts() {
       if (offer) {
         var disc = offer.type === "percent" ? +(price * offer.value / 100).toFixed(2) : (offer.type === "flat" ? Math.min(offer.value, price) : 0);
         var newPrice = +(price - disc).toFixed(2);
-        priceHtml = '<span style="color:var(--mint);font-weight:700">' + fmtCurrency(newPrice) + '</span> <span style="text-decoration:line-through;color:#aaa;font-size:12px">' + fmtCurrency(price) + '</span>';
+        priceHtml = '<span style="color:var(--mint);font-weight:700">' + fmtCurrency(newPrice) + '</span> <span style="text-decoration:line-through;color:var(--text-3);font-size:12px">' + fmtCurrency(price) + '</span>';
         offerTag = '<div style="position:absolute;top:8px;right:8px;background:linear-gradient(135deg,var(--accent-l),var(--accent));color:#fff;padding:3px 10px;border-radius:12px;font-size:10px;font-weight:700">' + (offer.type === "percent" ? offer.value + "% OFF" : "₹" + offer.value + " OFF") + '</div>';
       }
       var stockTag = p.quantity <= 5 ? '<div style="font-size:10px;color:var(--accent);font-weight:600">Only ' + p.quantity + ' left</div>' : '';
@@ -94,7 +94,7 @@ function renderProducts() {
         offerTag +
         '<div style="font-size:11px;color:var(--text-3)">' + p.category + '</div>' +
         '<div style="font-weight:700;font-size:14px;color:var(--text)">' + (typeof getTranslatedName === "function" ? getTranslatedName(p) : p.name) + '</div>' +
-        '<div style="font-size:11px;color:#888">' + (typeof getTranslatedCompany === "function" ? getTranslatedCompany(p) : (p.company||"")) + (p.size ? " · " + p.size : "") + '</div>' +
+        '<div style="font-size:11px;color:var(--text-3)">' + (typeof getTranslatedCompany === "function" ? getTranslatedCompany(p) : (p.company||"")) + (p.size ? " · " + p.size : "") + '</div>' +
         '<div style="font-size:15px;margin-top:auto">' + priceHtml + '</div>' +
         stockTag +
         '<button class="btn btn-sm btn-primary" style="width:100%;justify-content:center" onclick="addToShopCart(\'' + p.id + '\')">🛒 Add to Cart</button>' +
@@ -106,7 +106,7 @@ function renderTrending() {
   var el = document.getElementById("shop-trending");
   if (!el) return;
   var sorted = allProducts.slice().sort(function(a,b) { return (b.salesCount30||0) - (a.salesCount30||0); }).slice(0,5);
-  if (!sorted.length) { el.innerHTML = '<div style="color:#888;font-size:13px">No trending data yet.</div>'; return; }
+  if (!sorted.length) { el.innerHTML = '<div style="color:var(--text-3);font-size:13px">No trending data yet.</div>'; return; }
   el.innerHTML = sorted.map(function(p, i) {
     var icons = ["🥇","🥈","🥉","4️⃣","5️⃣"];
     return '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">' +
@@ -145,12 +145,12 @@ document.addEventListener("DOMContentLoaded", function() {
     '<div class="grid-2" style="margin-bottom:18px">' +
       '<div class="card" style="grid-column:1/-1">' +
         '<div class="card-title">🛍️ Products</div>' +
-        '<div id="shop-products"><div style="text-align:center;padding:24px;color:#888">Loading…</div></div>' +
+        '<div id="shop-products"><div style="text-align:center;padding:24px;color:var(--text-3)">Loading…</div></div>' +
       '</div>' +
     '</div>' +
     '<div class="card">' +
       '<div class="card-title">🔥 Trending Now</div>' +
-      '<div id="shop-trending"><div style="color:#888">Loading…</div></div>' +
+      '<div id="shop-trending"><div style="color:var(--text-3)">Loading…</div></div>' +
     '</div>';
   loadShop();
 });

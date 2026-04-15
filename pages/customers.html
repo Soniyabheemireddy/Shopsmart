@@ -125,7 +125,7 @@ var issueCouponCustomerId = null;
 
 async function loadCustomersPage() {
   var content = document.getElementById("page-content");
-  content.innerHTML = '<div style="text-align:center;padding:40px;color:#888">Loading customers…</div>';
+  content.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-3)">Loading customers…</div>';
 
   try {
     var snap = await db.collection(COL.customers).get();
@@ -206,7 +206,7 @@ async function loadCustomersPage() {
     content.innerHTML = '<div class="card" style="text-align:center;padding:40px">' +
       '<div style="font-size:36px;margin-bottom:12px">⚠️</div>' +
       '<div style="font-weight:700;margin-bottom:8px;color:var(--red)">Failed to load customers</div>' +
-      '<div style="font-size:13px;color:#888;margin-bottom:16px">' + (e.message || e) + '</div>' +
+      '<div style="font-size:13px;color:var(--text-3);margin-bottom:16px">' + (e.message || e) + '</div>' +
       '<button class="btn btn-primary" onclick="loadCustomersPage()">🔄 Retry</button>' +
     '</div>';
   }
@@ -237,7 +237,7 @@ function renderCustomerTable() {
   var tbody = document.getElementById("cust-tbody");
   if (!tbody) return;
   if (!list.length) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:32px;color:#888">No customers found.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text-3)">No customers found.</td></tr>';
     return;
   }
   tbody.innerHTML = list.map(function(c) {
@@ -265,7 +265,7 @@ async function toggleDetail(custId) {
   expandedCustomerId = custId;
   var cust = allCustomers.find(function(c) { return c.id === custId; });
   if (!cust) return;
-  area.innerHTML = '<div style="text-align:center;padding:20px;color:#888">Loading details…</div>';
+  area.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-3)">Loading details…</div>';
 
   // Fetch purchase history
   var salesSnap = await db.collection(COL.sales).where("customerPhone", "==", cust.phone).orderBy("createdAt", "desc").limit(10).get().catch(function() { return { docs: [] }; });

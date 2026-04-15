@@ -43,7 +43,7 @@ function renderUsers() {
   var customers = allUsers.filter(function(u) { return u.role === "User"; });
 
   function renderGroup(title, icon, users, badgeClass) {
-    if (!users.length) return '<div style="margin-bottom:20px"><h3 style="font-size:14px;color:var(--text-2);margin-bottom:8px">' + icon + ' ' + title + ' (0)</h3><div style="color:#888;font-size:13px;padding:8px 0">None</div></div>';
+    if (!users.length) return '<div style="margin-bottom:20px"><h3 style="font-size:14px;color:var(--text-2);margin-bottom:8px">' + icon + ' ' + title + ' (0)</h3><div style="color:var(--text-3);font-size:13px;padding:8px 0">None</div></div>';
     return '<div style="margin-bottom:20px"><h3 style="font-size:14px;color:var(--text-2);margin-bottom:10px">' + icon + ' ' + title + ' (' + users.length + ')</h3>' +
       users.map(function(u) {
         var dateStr = u.createdAt && u.createdAt.toDate ? u.createdAt.toDate().toLocaleDateString("en-IN") : "—";
@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Users list
     '<div class="card">' +
       '<div class="card-title">👥 All Users</div>' +
-      '<div id="users-list"><div style="text-align:center;padding:24px;color:#888">Loading…</div></div>' +
+      '<div id="users-list"><div style="text-align:center;padding:24px;color:var(--text-3)">Loading…</div></div>' +
     '</div>' +
 
     // Create modal

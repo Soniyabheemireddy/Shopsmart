@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function() {
   buildLayout("📦 My Orders");
   document.getElementById("page-content").innerHTML =
     '<div class="card"><div class="card-title">📦 My Orders</div>' +
-    '<div id="orders-list"><div style="text-align:center;padding:24px;color:#888">Loading…</div></div></div>';
+    '<div id="orders-list"><div style="text-align:center;padding:24px;color:var(--text-3)">Loading…</div></div></div>';
   auth.onAuthStateChanged(function(user) { if (user) loadOrders(); });
 });
 </script>

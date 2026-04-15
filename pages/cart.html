@@ -35,7 +35,7 @@ function renderCartPage() {
 
   el.innerHTML = summary.items.map(function(item) {
     var offerLine = item.offerApplied ? '<div style="font-size:10px;color:var(--accent);font-weight:600">🎯 ' + item.offerApplied.label + '</div>' : '';
-    var priceHtml = item.offerApplied ? fmtCurrency(item.price) + ' <span style="text-decoration:line-through;color:#aaa;font-size:11px">' + fmtCurrency(item.originalPrice) + '</span>' : fmtCurrency(item.price);
+    var priceHtml = item.offerApplied ? fmtCurrency(item.price) + ' <span style="text-decoration:line-through;color:var(--text-3);font-size:11px">' + fmtCurrency(item.originalPrice) + '</span>' : fmtCurrency(item.price);
     return '<div class="cart-item">' +
       '<div style="flex:1">' +
         '<div class="cart-item-name">' + item.name + '</div>' +

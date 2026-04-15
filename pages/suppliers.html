@@ -102,7 +102,7 @@ function renderReorderDrafts() {
   var lowStock = products.filter(function(p) { return (p.quantity/(p.maxStock||1))*100 <= 10 && p.supplierId; });
   var el = document.getElementById("reorder-list");
   if (!lowStock.length) {
-    el.innerHTML='<p style="color:#888;font-size:13px">No critical low-stock items with assigned suppliers.</p>';
+    el.innerHTML='<p style="color:var(--text-3);font-size:13px">No critical low-stock items with assigned suppliers.</p>';
     return;
   }
 
@@ -126,11 +126,11 @@ function renderReorderDrafts() {
       : '';
 
     html += '<div style="background:var(--green-p2);border-radius:8px;padding:12px;margin-bottom:10px">' +
-      '<div style="font-weight:700;margin-bottom:6px">🏪 ' + (sup?sup.name:"Unknown Supplier") + ' <span style="font-size:12px;font-weight:400;color:#888">(' + items.length + ' item' + (items.length!==1?'s':'') + ')</span></div>' +
+      '<div style="font-weight:700;margin-bottom:6px">🏪 ' + (sup?sup.name:"Unknown Supplier") + ' <span style="font-size:12px;font-weight:400;color:var(--text-3)">(' + items.length + ' item' + (items.length!==1?'s':'') + ')</span></div>' +
       items.map(function(p) {
         return '<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:13px">' +
           '<span>' + p.name + ' — <strong style="color:#e8634f">' + p.quantity + '</strong>/' + p.maxStock + '</span>' +
-          '<span style="color:#888">Need ' + (p.maxStock - p.quantity) + '</span>' +
+          '<span style="color:var(--text-3)">Need ' + (p.maxStock - p.quantity) + '</span>' +
         '</div>';
       }).join("") +
       '<div style="display:flex;gap:8px;margin-top:8px">' +
@@ -202,7 +202,7 @@ function populateProductCheckboxes(selectedIds) {
   if (filterInput) filterInput.value = "";
 
   if (!products.length) {
-    container.innerHTML = '<div style="color:#888;font-size:13px;padding:8px">No products in inventory yet.</div>';
+    container.innerHTML = '<div style="color:var(--text-3);font-size:13px;padding:8px">No products in inventory yet.</div>';
     return;
   }
 
@@ -219,7 +219,7 @@ function renderProductCheckboxes(selectedIds, filter) {
   }
 
   if (!filtered.length) {
-    container.innerHTML = '<div style="color:#888;font-size:13px;padding:8px">No products match filter.</div>';
+    container.innerHTML = '<div style="color:var(--text-3);font-size:13px;padding:8px">No products match filter.</div>';
     return;
   }
 
@@ -236,7 +236,7 @@ function renderProductCheckboxes(selectedIds, filter) {
       '<input type="checkbox" class="sup-prod-cb" value="' + p.id + '"' + checked + ' style="width:16px;height:16px;accent-color:#3ab87d"/>' +
       '<div style="flex:1;min-width:0">' +
         '<div style="font-size:13px;font-weight:600">' + p.name + '</div>' +
-        '<div style="font-size:11px;color:#888">' + (p.company||"") + ' · ' + p.category + '</div>' +
+        '<div style="font-size:11px;color:var(--text-3)">' + (p.company||"") + ' · ' + p.category + '</div>' +
       '</div>' +
       '<span style="font-size:11px;color:' + stockColor + '">' + p.quantity + '/' + p.maxStock + '</span>' +
     '</label>';
@@ -328,7 +328,7 @@ function renderLinkCheckboxes(selectedIds, filter) {
     });
   }
   if (!filtered.length) {
-    container.innerHTML = '<div style="color:#888;font-size:13px;padding:8px">No products match.</div>';
+    container.innerHTML = '<div style="color:var(--text-3);font-size:13px;padding:8px">No products match.</div>';
     return;
   }
   var selected = filtered.filter(function(p){return selectedIds.indexOf(p.id) !== -1;});
@@ -342,7 +342,7 @@ function renderLinkCheckboxes(selectedIds, filter) {
     return '<label style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer">' +
       '<input type="checkbox" class="link-prod-cb" value="' + p.id + '"' + checked + ' style="width:16px;height:16px;accent-color:#3ab87d"/>' +
       '<div style="flex:1"><span style="font-size:13px;font-weight:600">' + p.name + '</span>' + otherTag +
-      '<div style="font-size:11px;color:#888">' + (p.company||"") + ' · ' + p.category + ' · Stock: ' + p.quantity + '</div></div>' +
+      '<div style="font-size:11px;color:var(--text-3)">' + (p.company||"") + ' · ' + p.category + ' · Stock: ' + p.quantity + '</div></div>' +
     '</label>';
   }).join("");
 }
@@ -399,14 +399,14 @@ document.addEventListener("DOMContentLoaded", function() {
     // Reorder drafts
     '<div class="card" style="margin-bottom:18px">' +
       '<div class="card-title">📦 ' + t("sup.reorder") + '</div>' +
-      '<div id="reorder-list"><div style="color:#888">Loading…</div></div>' +
+      '<div id="reorder-list"><div style="color:var(--text-3)">Loading…</div></div>' +
     '</div>' +
 
     // Suppliers grid
     '<div class="card">' +
       '<div class="card-title">All Suppliers</div>' +
       '<div id="suppliers-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:4px">' +
-        '<div style="color:#888">Loading…</div>' +
+        '<div style="color:var(--text-3)">Loading…</div>' +
       '</div>' +
     '</div>' +
 

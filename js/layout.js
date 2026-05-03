@@ -89,16 +89,7 @@ function buildLayout(pageTitle) {
             <span class="logo-sub">Cloud Nine Team</span>
           </div>
         </a>
-        <nav class="sidebar-nav">
-          ${navHTML}
-          <div style="margin-top:auto; padding-top:20px; border-top:1px solid var(--sb-border);">
-            <span style="font-size:10px; text-transform:uppercase; color:var(--text-3); font-weight:700; letter-spacing:0.5px; display:block; margin-bottom:8px; padding-left:12px;">Other Projects</span>
-            <a href="https://github.com/Soniyabheemireddy/nitya-aaharam" target="_blank" class="nav-link" style="padding:8px 12px; font-size:12px;">
-              <span class="nav-icon" style="width:28px; height:28px; font-size:14px; box-shadow:none; background:transparent; border:none;">🍲</span>
-              <span class="nav-label">Nitya Aaharam</span>
-            </a>
-          </div>
-        </nav>
+        <nav class="sidebar-nav">${navHTML}</nav>
         <div class="sidebar-footer">
           <button class="btn-logout" onclick="logout()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
